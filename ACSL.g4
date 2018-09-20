@@ -55,37 +55,37 @@ unary_op
     ;
 
 term
-    : literal
-    | poly_id
-    | unary_op
-    | term bin_op term
-    | term '[' term ']'
-    | '{' term '\\with' '[' term ']' '=' term '}'
-    | term '.' id
-    | '{' term '\\with' '.' id '=' term '}'
-    | term '->' id
-    | '(' type_expr ')' term
-    | poly_id '(' term (',' term)* ')'
-    | '(' term ')'
-    | term '?' term ':' term
-    | '\\let' id '=' term ';' term
-    | 'sizeof' '(' term ')'
-    | 'sizeof' '(' typeName ')'
-    | id ':' term
-    | string ':' term
+    : literal                                           # literal_term
+    | poly_id                                           # variable_term
+    | unary_op                                          # unary_op_term
+    | term bin_op term                                  # binary_op_term
+    | term '[' term ']'                                 # array_access_term
+    | '{' term '\\with' '[' term ']' '=' term '}'       # array_func_modifier_term
+    | term '.' id                                       # structure_field_access_term
+    | '{' term '\\with' '.' id '=' term '}'             # field_func_modifier_term
+    | term '->' id                                      # structure_field_access_term
+    | '(' type_expr ')' term                            # cast_term
+    | poly_id '(' term (',' term)* ')'                  # func_application_term
+    | '(' term ')'                                      # parantheses_term
+    | term '?' term ':' term                            # ternary_cond_term
+    | '\\let' id '=' term ';' term                      # local_binding_term
+    | 'sizeof' '(' term ')'                             # sizeof_term
+    | 'sizeof' '(' typeName ')'                         # sizeof_type_term
+    | id ':' term                                       # syntactic_naming_term
+    | string ':' term                                   # syntactic_naming_term
 // oldandresult.tex
-    | '\\old' '(' term ')'
-    | '\\result'
+    | '\\old' '(' term ')'                              # old_term
+    | '\\result'                                        # result_term
 // memory.tex:
-    | '\\null'
-    | '\\base_addr' one_label? '(' term ')'
-    | '\\block_length' one_label? '(' term ')'
-    | '\\offset' one_label?  '(' term ')'
-    | '{' '\\allocation' '}' one_label?   '(' term ')'
+    | '\\null'                                          # null_term
+    | '\\base_addr' one_label? '(' term ')'             # base_addr_term
+    | '\\block_length' one_label? '(' term ')'          # block_length_term
+    | '\\offset' one_label?  '(' term ')'               # offset_term
+    | '{' '\\allocation' '}' one_label?   '(' term ')'  # allocation_term
 // exitbehavior.tex
-    | '\\exit_status'
+    | '\\exit_status'                                   # exit_status_term
 // at.tex
-    | '\\at' '(' term ',' label_id ')'
+    | '\\at' '(' term ',' label_id ')'                  # at_term
     ;
 
 poly_id
