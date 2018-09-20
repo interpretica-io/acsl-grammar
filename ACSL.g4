@@ -34,9 +34,11 @@ string
 
 // term.tex
 literal
-    :   '\\true' | '\\false'
-    |   Constant
+    : '\\true'                                          # true_constant
+    | '\\false'                                         # false_constant
     // let's use C classes
+    | Constant                                          # trivial_constant
+    | string                                            # string_constant
     ;
 
 bin_op
