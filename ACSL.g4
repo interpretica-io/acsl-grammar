@@ -97,35 +97,37 @@ rel_op
     : '==' | '!=' | '<=' | '>=' | '>' | '<'
     ;
 pred
-    : '\\true' | '\\false'
-    | term (rel_op term)+
-    | ident '(' term (',' term)* ')'
-    | '(' pred ')'
-    | pred '&&' pred
-    | pred '||' pred
-    | pred '==>' pred
-    | pred '<==>' pred
-    | '!' pred
-    | pred '^^' pred
-    | term '?' pred ':' pred
-    | pred '?' pred ':' pred
-    | '\\let' id '=' term ';' pred
-    | '\\let' id '=' pred ';' pred
-    | '\\forall' binders ';' pred
-    | id ':' pred
-    | string ':' pred
+    : '\\true'                          # logical_true_pred
+    | '\\false'                         # logical_false_pred
+    | term (rel_op term)+               # comparison_pred
+    | ident '(' term (',' term)* ')'    # predicate_application_pred
+    | '(' pred ')'                      # parantheses_pred
+    | pred '&&' pred                    # conjunction_pred
+    | pred '||' pred                    # disjunction_pred
+    | pred '==>' pred                   # implication_pred
+    | pred '<==>' pred                  # equivalence_pred
+    | '!' pred                          # negation_pred
+    | pred '^^' pred                    # exclusive_or_pred
+    | term '?' pred ':' pred            # ternary_condition_term_pred
+    | pred '?' pred ':' pred            # ternary_condition_pred
+    | '\\let' id '=' term ';' pred      # local_binding_pred
+    | '\\let' id '=' pred ';' pred      # local_binding_pred
+    | '\\forall' binders ';' pred       # universal_quantification_pred
+    | '\\exists' binders ';' pred       # existential_quantification_pred
+    | id ':' pred                       # syntactic_naming_pred
+    | string ':' pred                   # syntactic_naming_pred
 // oldandresult.tex
-    | '\\old' '(' pred ')'
+    | '\\old' '(' pred ')'              # old_pred
 // loc.tex
-    | '\\subset' '(' tset ',' tset ')'
-    | term '\\in' tset
+    | '\\subset' '(' tset ',' tset ')'  # set_inclusion_pred
+    | term '\\in' tset                  # set_membership_pred
 // memory.tex:
-    | '\\allocable' one_label? '(' term ')'
-    | '\\freeable' one_label? '(' term ')'
-    | '\\fresh'   two_labels? '(' term ',' term ')'
-    | '\\valid'  one_label?  '(' location_address ')'
-    | '\\valid_read'  one_label? '(' location_address ')'
-    | '\\separated' '(' location_address ',' location_addresses ')'
+    | '\\allocable' one_label? '(' term ')'                         # allocable_pred
+    | '\\freeable' one_label? '(' term ')'                          # freeable_pred
+    | '\\fresh'   two_labels? '(' term ',' term ')'                 # fresh_pred
+    | '\\valid'  one_label?  '(' location_address ')'               # valid_pred
+    | '\\valid_read'  one_label? '(' location_address ')'           # valid_read_pred
+    | '\\separated' '(' location_address ',' location_addresses ')' # separated_pred
     ;
 
 ident
