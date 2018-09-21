@@ -59,7 +59,7 @@ unary_op
 term
     : literal                                           # literal_term
     | poly_id                                           # variable_term
-    | unary_op                                          # unary_op_term
+    | unary_op term                                     # unary_op_term
     | term bin_op term                                  # binary_op_term
     | term '[' term ']'                                 # array_access_term
     | '{' term '\\with' '[' term ']' '=' term '}'       # array_func_modifier_term
