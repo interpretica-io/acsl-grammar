@@ -322,7 +322,7 @@ AcslCommentStart
     ;
 
 AcslCommentEnd
-    : '@*/' {skipCommentSymbols = false;}
+    : '*/' {skipCommentSymbols = false;}
     ;
 
 AcslCommentIntermediate
