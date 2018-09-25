@@ -330,6 +330,7 @@ AcslCommentIntermediate
     ;
 
 acsl_comment
-    : AcslCommentStart Newline* function_contract AcslCommentEnd Newline*
+    : AcslCommentStart Newline* function_contract AcslCommentEnd Newline* # acsl_comment_contract
+    | Newline* assertion Newline*                                         # acsl_comment_assertion
     ;
 // own additions --- end
