@@ -316,6 +316,32 @@ label_id
     | id
     ;
 
+// loops.tex
+loop_annot
+    : loop_clause* loop_behavior* loop_variant?
+    ;
+
+loop_clause
+    : loop_invariant | loop_assigns | loop_allocation
+    ;
+
+loop_invariant
+    : 'loop' 'invariant' pred ';'
+    ;
+
+loop_assigns
+    : 'loop' 'assigns' locations ';'
+    ;
+
+loop_behavior
+    : 'for' id (',' id)* ':' loop_clause+
+    ;
+
+loop_variant
+    : 'loop' 'variant' term ';'
+    | 'loop' 'variant' term 'for' id ';'
+    ;
+
 // own additions --- start
 AcslCommentStart
     : '/*@' {skipCommentSymbols = true;}
@@ -332,5 +358,6 @@ AcslCommentIntermediate
 acsl_comment
     : AcslCommentStart Newline* function_contract AcslCommentEnd Newline* # acsl_comment_contract
     | Newline* assertion Newline*                                         # acsl_comment_assertion
+    | AcslCommentStart Newline* loop_annot AcslCommentEnd Newline*        # acsl_comment_loop_annot
     ;
 // own additions --- end
