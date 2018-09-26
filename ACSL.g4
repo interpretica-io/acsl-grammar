@@ -342,6 +342,23 @@ loop_variant
     | 'loop' 'variant' term 'for' id ';'
     ;
 
+// st_contracts.tex
+statement_contract
+    : ('for' id (',' id)* ':')? requires_clause* simple_clause_stmt* named_behavior_stmt* completeness_clause*
+    ;
+
+simple_clause_stmt
+    : simple_clause | abrupt_clause_stmt
+    ;
+
+named_behavior_stmt
+    : 'behavior' id ':' behavior_body_stmt
+    ;
+
+behavior_body_stmt
+    : assumes_clause* requires_clause* simple_clause_stmt*
+    ;
+
 // own additions --- start
 AcslCommentStart
     : '/*@' {skipCommentSymbols = true;}
@@ -359,5 +376,6 @@ acsl_comment
     : AcslCommentStart Newline* function_contract AcslCommentEnd Newline* # acsl_comment_contract
     | Newline* assertion Newline*                                         # acsl_comment_assertion
     | AcslCommentStart Newline* loop_annot AcslCommentEnd Newline*        # acsl_comment_loop_annot
+    | AcslCommentStart Newline* statement_contract AcslCommentEnd Newline*  # acsl_comment_statement_contract
     ;
 // own additions --- end
