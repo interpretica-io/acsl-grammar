@@ -221,20 +221,20 @@ completeness_clause
 
 // loc.tex
 tset
-    : '\\empty'
-    | tset '->' id
-    | tset '.' id
-    | '*' tset
-    | '&' tset
-    | tset '[' tset ']'
-    | term? '..' term?
-    | '\\union' ( tset (',' tset)* )
-    | '\\inter' ( tset (',' tset)* )
-    | tset '+' tset
-    | '(' tset ')'
-    | '{' tset '|' binders (':' pred)? '}'
-    | '{' (tset (',' tset)*)? '}'
-    | term
+    : '\\empty'                         # tset_empty
+    | tset '->' id                      # tset_pointer_access
+    | tset '.' id                       # tset_member_access
+    | '*' tset                          # tset_deref
+    | '&' tset                          # tset_addr
+    | tset '[' tset ']'                 # tset_array_access
+    | term? '..' term?                  # tset_range
+    | '\\union' ( tset (',' tset)* )    # tset_union
+    | '\\inter' ( tset (',' tset)* )    # tset_intersection
+    | tset '+' tset                     # tset_plus
+    | '(' tset ')'                      # tset_paren
+    | '{' tset '|' binders (':' pred)? '}'  # tset_binders
+    | '{' (tset (',' tset)*)? '}'           # tset_set
+    | term                                  # tset_term
     ;
 
 c_compound_statement
