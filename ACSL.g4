@@ -128,6 +128,7 @@ pred
     | '\\freeable' one_label? '(' term ')'                          # freeable_pred
     | '\\fresh'   two_labels? '(' term ',' term ')'                 # fresh_pred
     | '\\valid'  one_label?  '(' location_address ')'               # valid_pred
+    | '\\initialized'  one_label?  '(' location_address ')'         # initialized_pred
     | '\\valid_read'  one_label? '(' location_address ')'           # valid_read_pred
     | '\\separated' '(' location_address ',' location_addresses ')' # separated_pred
     ;
