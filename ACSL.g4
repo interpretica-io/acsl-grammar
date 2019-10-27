@@ -254,8 +254,8 @@ assertion
 
 // allocation.tex
 allocation_clause
-    : 'allocates' dyn_allocation_addresses ';'
-    | 'frees' dyn_allocation_addresses ';'
+    : 'allocates' dyn_allocation_addresses ';' # allocates_clause
+    | 'frees' dyn_allocation_addresses ';'     # frees_clause
     ;
 
 loop_allocation
