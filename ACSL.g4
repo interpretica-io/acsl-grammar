@@ -82,6 +82,9 @@ term
     | '\\null'                                          # null_term
     | '\\base_addr' one_label? '(' term ')'             # base_addr_term
     | '\\block_length' one_label? '(' term ')'          # block_length_term
+// start of own addition
+    | '\\length' one_label? '(' term ')'                # length_term
+// end of own addition
     | '\\offset' one_label?  '(' term ')'               # offset_term
     | '{' '\\allocation' '}' one_label?   '(' term ')'  # allocation_term
 // exitbehavior.tex
