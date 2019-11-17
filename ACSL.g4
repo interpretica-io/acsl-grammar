@@ -91,6 +91,9 @@ term
     | '\\exit_status'                                   # exit_status_term
 // at.tex
     | '\\at' '(' term ',' label_id ')'                  # at_term
+// own additions - start
+    | '\\internal'                                      # internal_term
+// own additions - end
     ;
 
 poly_id
