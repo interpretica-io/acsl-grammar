@@ -191,10 +191,32 @@ decreases_clause
 simple_clause
     : assigns_clause | ensures_clause
     | allocation_clause | abrupt_clause
+    | locks_clause | unlocks_clause // author's additions
+    | async_clause | joins_clause // author's additions
     ;
 
 assigns_clause
     : 'assigns' locations ';'
+    ;
+
+// Author's additions: 'locks' clause
+locks_clause
+    : 'locks' locations ';'
+    ;
+
+// Author's additions: 'unlocks' clause
+unlocks_clause
+    : 'unlocks' locations ';'
+    ;
+
+// Author's additions: 'async' clause
+async_clause
+    : 'async' locations ';'
+    ;
+
+// Author's additions: 'joins' clause
+joins_clause
+    : 'joins' locations ';'
     ;
 
 locations
