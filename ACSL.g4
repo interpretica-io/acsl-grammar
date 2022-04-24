@@ -210,7 +210,7 @@ forks_clause
 
 // Author's additions: 'executes' clause
 executes_clause
-    : 'executes' string ';'
+    : 'executes' term ';'
     ;
 
 // Author's additions: 'locks' clause
