@@ -193,6 +193,8 @@ simple_clause
     | allocation_clause | abrupt_clause
     | locks_clause | unlocks_clause // author's additions
     | async_clause | joins_clause // author's additions
+    | sleeps_clause | interleaves_clause // author's additions
+    | thread_clause
     ;
 
 assigns_clause
@@ -217,6 +219,21 @@ async_clause
 // Author's additions: 'joins' clause
 joins_clause
     : 'joins' locations ';'
+    ;
+
+// Author's additions: 'sleeps' clause
+sleeps_clause
+    : 'sleeps' locations ';'
+    ;
+
+// Author's additions: 'sleeps' clause
+interleaves_clause
+    : 'interleaves' 'with' locations ';'
+    ;
+
+// Author's additions: 'thread' clause
+thread_clause
+    : 'thread' ';'
     ;
 
 locations
