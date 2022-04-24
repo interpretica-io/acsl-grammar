@@ -194,7 +194,7 @@ simple_clause
     | locks_clause | unlocks_clause // author's additions
     | async_clause | joins_clause // author's additions
     | sleeps_clause | interleaves_clause // author's additions
-    | thread_clause
+    | thread_clause | shared_clause // author's additions
     ;
 
 assigns_clause
@@ -234,6 +234,11 @@ interleaves_clause
 // Author's additions: 'thread' clause
 thread_clause
     : 'thread' ';'
+    ;
+
+// Author's additions: 'shared' clause
+shared_clause
+    : 'shared' ';'
     ;
 
 locations
