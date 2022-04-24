@@ -213,7 +213,7 @@ unlocks_clause
 
 // Author's additions: 'async' clause
 async_clause
-    : 'async' locations ';'
+    : 'async' location '->' location ';'
     ;
 
 // Author's additions: 'joins' clause
