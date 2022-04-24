@@ -196,10 +196,21 @@ simple_clause
     | sleeps_clause | interleaves_clause // author's additions
     | threaded_clause | shares_clause // author's additions
     | tagged_clause | tags_clause // author's additions
+    | forks_clause | executes_clause // author's additions
     ;
 
 assigns_clause
     : 'assigns' locations ';'
+    ;
+
+// Author's additions: 'forks' clause
+forks_clause
+    : 'forks' ';'
+    ;
+
+// Author's additions: 'executes' clause
+executes_clause
+    : 'executes' string ';'
     ;
 
 // Author's additions: 'locks' clause
