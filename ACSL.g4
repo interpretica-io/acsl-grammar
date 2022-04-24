@@ -195,6 +195,7 @@ simple_clause
     | async_clause | joins_clause // author's additions
     | sleeps_clause | interleaves_clause // author's additions
     | threaded_clause | shares_clause // author's additions
+    | tagged_clause | tags_clause // author's additions
     ;
 
 assigns_clause
@@ -239,6 +240,20 @@ threaded_clause
 // Author's additions: 'shares' clause
 shares_clause
     : 'shares' locations ';'
+    ;
+
+// Author's additions: 'tagged' clause
+tagged_clause
+    : 'tagged' strings ';'
+    ;
+
+// Author's additions: 'tags' clause
+tags_clause
+    : 'tags' string '->' location ';'
+    ;
+
+strings
+    : string (',' string)*
     ;
 
 locations
