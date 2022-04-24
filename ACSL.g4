@@ -223,7 +223,7 @@ joins_clause
 
 // Author's additions: 'sleeps' clause
 sleeps_clause
-    : 'sleeps' locations ';'
+    : 'sleeps' term ';'
     ;
 
 // Author's additions: 'sleeps' clause
@@ -238,7 +238,7 @@ thread_clause
 
 // Author's additions: 'shared' clause
 shared_clause
-    : 'shared' ';'
+    : 'shared' locations ';'
     ;
 
 locations
