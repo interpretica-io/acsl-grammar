@@ -137,6 +137,7 @@ pred
     | '\\initialized'  one_label?  '(' location_address ')'         # initialized_pred
     | '\\valid_read'  one_label? '(' location_address ')'           # valid_read_pred
     | '\\separated' '(' location_address ',' location_addresses ')' # separated_pred
+    | '\\context_tagged' '(' strings ')'                            # context_tagged_pred
     ;
 
 ident
