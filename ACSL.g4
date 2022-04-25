@@ -93,7 +93,6 @@ term
     | '\\at' '(' term ',' label_id ')'                  # at_term
 // own additions - start
     | '\\internal'                                      # internal_term
-    | '\\report' '(' term ',' string ')'                # report_term
 // own additions - end
     ;
 
@@ -139,6 +138,9 @@ pred
     | '\\valid_read'  one_label? '(' location_address ')'           # valid_read_pred
     | '\\separated' '(' location_address ',' location_addresses ')' # separated_pred
     | '\\context_tagged' '(' strings ')'                            # context_tagged_pred
+// own additions:
+    | '\\report' '(' pred ',' string ')'                            # report_pred
+// end of own additions
     ;
 
 ident
