@@ -93,6 +93,7 @@ term
     | '\\at' '(' term ',' label_id ')'                  # at_term
 // own additions - start
     | '\\internal'                                      # internal_term
+    | '\\report' '(' term ',' string ')'                # report_term
 // own additions - end
     ;
 
