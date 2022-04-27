@@ -201,6 +201,29 @@ simple_clause
     | threaded_clause | shares_clause // author's additions
     | tagged_clause | tags_clause // author's additions
     | forks_clause | executes_clause // author's additions
+    | report_clause // author's additions
+    ;
+
+// Author's additions: 'report pre failure as' clause
+report_pre_failure_clause
+    : 'report' 'pre' 'failure' 'as' string ';'
+    ;
+
+// Author's additions: 'report post failure as' clause
+report_post_failure_clause
+    : 'report' 'post' 'failure' 'as' string ';'
+    ;
+
+// Author's additions: 'report match as' clause
+report_match_clause
+    : 'report' 'match' 'as' string ';'
+    ;
+
+// Author's additions: report * clause
+report_clause
+    : report_pre_failure_clause
+    | report_post_failure_clause
+    | report_match_clause
     ;
 
 assigns_clause
