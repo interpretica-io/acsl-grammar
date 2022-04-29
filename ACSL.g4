@@ -476,10 +476,26 @@ AcslCommentIntermediate
     : '@' { if (skipCommentSymbols) skip(); }
     ;
 
+acsl_comment_contract
+    : AcslCommentStart Newline* function_contract AcslCommentEnd Newline*
+    ;
+
+acsl_comment_assertion
+    : Newline* assertion Newline*
+    ;
+
+acsl_comment_loop_annot
+    : AcslCommentStart Newline* loop_annot AcslCommentEnd Newline*
+    ;
+
+acsl_comment_statement_contract
+    : AcslCommentStart Newline* statement_contract AcslCommentEnd Newline*
+    ;
+
 acsl_comment
-    : AcslCommentStart Newline* function_contract AcslCommentEnd Newline* # acsl_comment_contract
-    | Newline* assertion Newline*                                         # acsl_comment_assertion
-    | AcslCommentStart Newline* loop_annot AcslCommentEnd Newline*        # acsl_comment_loop_annot
-    | AcslCommentStart Newline* statement_contract AcslCommentEnd Newline*  # acsl_comment_statement_contract
+    : acsl_comment_contract
+    | acsl_comment_assertion
+    | acsl_comment_loop_annot
+    | acsl_comment_statement_contract
     ;
 // own additions --- end
