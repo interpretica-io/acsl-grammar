@@ -288,7 +288,7 @@ tagged_clause
 
 // Author's additions: tag chain term
 tag_chain_term
-    : (string ':')* string
+    : (Identifier ':')* Identifier
     ;
 
 // Author's additions: 'tags' clause
