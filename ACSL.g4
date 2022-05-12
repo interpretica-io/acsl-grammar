@@ -286,9 +286,14 @@ tagged_clause
     : 'tagged' strings ';'
     ;
 
+// Author's additions: tag chain term
+tag_chain_term
+    : (string ':')* string
+    ;
+
 // Author's additions: 'tags' clause
 tags_clause
-    : 'tags' string '->' location ';'
+    : 'tags' tag_chain_term '->' location ';'
     ;
 
 strings
