@@ -325,8 +325,8 @@ assumes_clause
     ;
 
 completeness_clause
-    : 'complete' 'behaviors' (id ',' (',' id)*)? ';'
-    | 'disjoint' 'behaviors' (id ',' (',' id)*)? ';'
+    : 'complete' 'behaviors' (id ',' (',' id)*)? ';' # complete_behaviors_clause
+    | 'disjoint' 'behaviors' (id ',' (',' id)*)? ';' # disjoint_behaviors_clause
     ;
 
 // loc.tex
