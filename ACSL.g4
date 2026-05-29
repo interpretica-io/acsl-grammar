@@ -356,8 +356,10 @@ c_statement
     ;
 
 assertion
-    : '/*@' 'assert' pred ';' '*/'
-    | '/*@' 'for' id (',' id)* ':' 'assert' pred ';' '*/'
+    : '/*@' 'assert' pred ';' '*/'                         # assert_assertion
+    | '/*@' 'for' id (',' id)* ':' 'assert' pred ';' '*/'  # for_assert_assertion
+    | '/*@' 'check' pred ';' '*/'                          # check_assertion
+    | '/*@' 'for' id (',' id)* ':' 'check' pred ';' '*/'   # for_check_assertion
     ;
 
 
