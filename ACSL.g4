@@ -71,6 +71,7 @@ term
     | '(' term ')'                                      # parentheses_term
     | term '?' term ':' term                            # ternary_cond_term
     | '\\let' id '=' term ';' term                      # local_binding_term
+    | '\\lambda' binders ';' term                       # lambda_term
     | 'sizeof' '(' term ')'                             # sizeof_term
     | 'sizeof' '(' typeName ')'                         # sizeof_type_term
     | id ':' term                                       # syntactic_naming_term
@@ -126,6 +127,8 @@ pred
     | string ':' pred                   # syntactic_naming_pred
 // oldandresult.tex
     | '\\old' '(' pred ')'              # old_pred
+// at.tex — pred-level form: \at(P, L) where P is a predicate
+    | '\\at' '(' pred ',' label_id ')'  # at_pred
 // loc.tex
     | '\\subset' '(' tset ',' tset ')'  # set_inclusion_pred
     | term '\\in' tset                  # set_membership_pred
@@ -136,6 +139,7 @@ pred
     | '\\valid'  one_label?  '(' location_address ')'               # valid_pred
     | '\\initialized'  one_label?  '(' location_address ')'         # initialized_pred
     | '\\valid_read'  one_label? '(' location_address ')'           # valid_read_pred
+    | '\\valid_range' '(' term ',' term ',' term ')'                # valid_range_pred
     | '\\separated' '(' location_address ',' location_addresses ')' # separated_pred
 // own additions:
     | '\\tagged' '(' location ',' string ')'                        # tagged_pred
@@ -325,8 +329,8 @@ assumes_clause
     ;
 
 completeness_clause
-    : 'complete' 'behaviors' (id ',' (',' id)*)? ';' # complete_behaviors_clause
-    | 'disjoint' 'behaviors' (id ',' (',' id)*)? ';' # disjoint_behaviors_clause
+    : 'complete' 'behaviors' (id (',' id)*)? ';' # complete_behaviors_clause
+    | 'disjoint' 'behaviors' (id (',' id)*)? ';' # disjoint_behaviors_clause
     ;
 
 // loc.tex
