@@ -67,7 +67,7 @@ term
     | '{' term '\\with' '.' id '=' term '}'             # field_func_modifier_term
     | term '->' id                                      # pointer_structure_field_access_term
     | '(' type_expr ')' term                            # cast_term
-    | poly_id '(' term (',' term)* ')'                  # func_application_term
+    | poly_id '(' (term (',' term)*)? ')'               # func_application_term
     | '(' term ')'                                      # parentheses_term
     | term '?' term ':' term                            # ternary_cond_term
     | '\\let' id '=' term ';' term                      # local_binding_term
@@ -109,7 +109,7 @@ pred
     : '\\true'                          # logical_true_pred
     | '\\false'                         # logical_false_pred
     | term (rel_op term)+               # comparison_pred
-    | ident '(' term (',' term)* ')'    # predicate_application_pred
+    | ident '(' (term (',' term)*)? ')' # predicate_application_pred
     | '(' pred ')'                      # parentheses_pred
     | pred '&&' pred                    # conjunction_pred
     | pred '||' pred                    # disjunction_pred
