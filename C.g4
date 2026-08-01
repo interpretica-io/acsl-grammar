@@ -786,7 +786,10 @@ HexadecimalFloatingConstant
 fragment
 FractionalConstant
     :   DigitSequence? '.' DigitSequence
-    |   DigitSequence '.'
+        // `0..2` is an ACSL tset range, not the float `0.` followed
+        // by `.2` — reject the trailing-dot alternative when the dot
+        // is the first char of `..` (never legal in a C float).
+    |   DigitSequence '.' { _input->LA(1) != '.' }?
     ;
 
 fragment
