@@ -27,6 +27,19 @@ import C;
 
 id
     : Identifier
+    | soft_kw
+    ;
+
+// Contextual keywords: ACSL clause keywords are not reserved words
+// in C, so user code legally uses them as identifiers
+// (`typedef int assert; behavior >= 0`).  Any keyword TOKEN of this
+// grammar that can appear in identifier position must be listed
+// here; words that are not grammar literals (reads, writes, label,
+// global, module, function, ...) already lex as Identifier.
+soft_kw
+    : 'behavior' | 'behaviors' | 'assert' | 'check'
+    | 'requires' | 'ensures' | 'assumes' | 'assigns'
+    | 'invariant' | 'variant' | 'loop'
     ;
 string
     : StringLiteral+
@@ -66,7 +79,7 @@ term
     | term '.' id                                       # structure_field_access_term
     | '{' term '\\with' '.' id '=' term '}'             # field_func_modifier_term
     | term '->' id                                      # pointer_structure_field_access_term
-    | '(' type_expr ')' term                            # cast_term
+    | '(' type_expr ('[]' | '[' ']')* ')' term          # cast_term
     | poly_id '(' (term (',' term)*)? ')'               # func_application_term
     | '(' term ')'                                      # parentheses_term
     | term '?' term ':' term                            # ternary_cond_term
@@ -99,6 +112,7 @@ term
 
 poly_id
     : Identifier
+    | soft_kw
     ;
 
 // predicate.tex
@@ -232,7 +246,13 @@ report_clause
     ;
 
 assigns_clause
-    : 'assigns' locations ';'
+    : 'assigns' locations from_clause? ';'
+    ;
+
+// Frama-C extension: `assigns x \from y;` dependency annotation.
+// The \from part is dependency metadata, not a proof obligation.
+from_clause
+    : '\\from' locations
     ;
 
 // Author's additions: 'forks' clause
@@ -360,9 +380,9 @@ c_statement
     ;
 
 assertion
-    : '/*@' 'assert' pred ';' '*/'                         # assert_assertion
+    : '/*@' 'assert' (id ':')? pred ';' '*/'               # assert_assertion
     | '/*@' 'for' id (',' id)* ':' 'assert' pred ';' '*/'  # for_assert_assertion
-    | '/*@' 'check' pred ';' '*/'                          # check_assertion
+    | '/*@' 'check' (id ':')? pred ';' '*/'                # check_assertion
     | '/*@' 'for' id (',' id)* ':' 'check' pred ';' '*/'   # for_check_assertion
     ;
 
