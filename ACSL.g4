@@ -55,9 +55,14 @@ literal
     ;
 
 bin_op
+    // Comparison and logical operators removed from TERM level:
+    // with them here, `0 <= i < n && a[i] == val` inside a
+    // quantifier parsed as `((0<=i && i<n) && a)[i] == val` — the
+    // term-level `&&` swallowed the rel-chain operand and the
+    // ArraySubscript applied to a conjunction.  Comparisons live in
+    // comparison_pred, conjunction/disjunction in
+    // conjunction_pred/disjunction_pred (ACSL spec separation).
     : '+' | '-' | '*' | '/' | '%' | '<<' | '>>'
-    | '==' | '!=' | '<=' | '>=' | '>' | '<'
-    | '&&' | '||' | '^^'
     | '&' | '|' | '-->' | '<-->' | '^'
     ;
 
