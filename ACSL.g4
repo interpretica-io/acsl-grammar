@@ -132,7 +132,11 @@ pred
     | '(' pred ')'                      # parentheses_pred
     | pred '&&' pred                    # conjunction_pred
     | pred '||' pred                    # disjunction_pred
-    | pred '==>' pred                   # implication_pred
+    // ACSL spec: ==> is RIGHT-associative (A ==> B ==> C is
+    // A ==> (B ==> C)).  ANTLR's default left recursion produced
+    // (A ==> B) ==> C, silently changing the meaning of every
+    // chained implication (lemmas, behavior guards, invariants).
+    | <assoc=right> pred '==>' pred     # implication_pred
     | pred '<==>' pred                  # equivalence_pred
     | '!' pred                          # negation_pred
     | pred '^^' pred                    # exclusive_or_pred
