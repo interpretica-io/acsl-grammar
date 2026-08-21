@@ -88,6 +88,17 @@ term
     | poly_id '(' (term (',' term)*)? ')'               # func_application_term
     | '(' term ')'                                      # parentheses_term
     | term '?' term ':' term                            # ternary_cond_term
+    // A conditional term whose condition is a *relation* — the
+    // shape ordinary contracts are written in:
+    //   ensures \result == (end > start ? end - start : 0);
+    // Comparisons are predicates here (see the bin_op note above),
+    // so `(end > start ? ... : ...)` matched neither
+    // `'(' term ')'` nor `ternary_cond_term`, and the annotation
+    // degraded to a partial tree.  Parenthesised only: without the
+    // parentheses the pred-level ternary already covers it, and an
+    // unbracketed `pred ? term : term` in term position is
+    // ambiguous with it.
+    | '(' pred '?' term ':' term ')'                    # ternary_pred_cond_term
     | '\\let' id '=' term ';' term                      # local_binding_term
     | '\\lambda' binders ';' term                       # lambda_term
     | 'sizeof' '(' term ')'                             # sizeof_term
@@ -96,6 +107,12 @@ term
     | string ':' term                                   # syntactic_naming_term
 // oldandresult.tex
     | '\\old' '(' term ')'                              # old_term
+    // …and the same conditional term inside `\old`, which is where
+    // real contracts put it: `\old(p == \null ? top : p)`.
+    // ANTLR4 has no indirect left recursion, so a bare
+    // `pred '?' term ':' term` cannot be an alternative of `term`;
+    // each bracketed context has to name it.
+    | '\\old' '(' pred '?' term ':' term ')'            # old_ternary_pred_cond_term
     | '\\result'                                        # result_term
 // memory.tex:
     | '\\null'                                          # null_term
@@ -163,6 +180,10 @@ pred
     | '\\initialized'  one_label?  '(' location_address ')'         # initialized_pred
     | '\\valid_read'  one_label? '(' location_address ')'           # valid_read_pred
     | '\\valid_range' '(' term ',' term ',' term ')'                # valid_range_pred
+    // A function pointer designates a function of the right type.
+    // Nothing here is about memory, so it is not a narrower
+    // `\valid` — see the visitor.
+    | '\\valid_function' '(' term ')'                              # valid_function_pred
     | '\\separated' '(' location_address ',' location_addresses ')' # separated_pred
 // own additions:
     | '\\tagged' '(' location ',' string ')'                        # tagged_pred
